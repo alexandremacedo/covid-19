@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import Background from '~/components/Background';
 import Modal from 'react-native-modal';
-import { ActivityIndicator } from 'react-native';
+import { ActivityIndicator, View } from 'react-native';
 
 import {
   Container,
@@ -45,7 +45,6 @@ import {
   Press,
 } from './styles';
 
-import { formatDistance, parseISO } from 'date-fns';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import coronavirus from '~/assets/coronavirus.png';
 import api from '~/services/apiTest';
@@ -62,21 +61,21 @@ export default function Statistics() {
   const [page, setPage] = useState(1);
   const [loadMore, setLoadMore] = useState(false);
 
-  // const [countries, setCountries] = useState([]);
-  // const [countriesPaginated, setCountriesPaginated] = useState([]);
+  const [countries, setCountries] = useState([]);
+  const [countriesPaginated, setCountriesPaginated] = useState([]);
 
   useEffect(() => {
     async function loadStatistics() {
       const response = await api.get('statistics');
       const allStatistics = response.data;
-      // const countriesName = response.data.map((country) => country.country);
+      const countriesName = response.data.map((country) => country.country);
       const countryStatistics = response.data.find(
         (stat) => stat.country === countryName,
       );
 
       setStatistics(allStatistics);
-      // setCountries(countriesName);
-      // setCountriesPaginated(paginate(countriesName, page));
+      setCountries(countriesName);
+      setCountriesPaginated(paginate(countriesName, page));
       setCountry(countryStatistics);
     }
     setTimeout(() => {
@@ -85,19 +84,65 @@ export default function Statistics() {
     loadStatistics();
   }, [countryName, page]);
 
-  // console.log(paginate(countries, 2));
-  const countries = [
-    'China',
-    'Italy',
-    'Spain',
-    'USA',
-    'Germany',
-    'Iran',
-    'France',
-    'S-Korea',
-    'Switzerland',
-    'UK',
-  ];
+  // const countries = [
+  //   'China',
+  //   'Italy',
+  //   'Spain',
+  //   'USA',
+  //   'Germany',
+  //   'Iran',
+  //   'France',
+  //   'S-Korea',
+  //   'Switzerland',
+  //   'UK',
+  //   'Netherlands',
+  //   'Austria',
+  //   'Belgium',
+  //   'Norway',
+  //   'Sweden',
+  //   'Canada',
+  //   'Denmark',
+  //   'Portugal',
+  //   'Malaysia',
+  //   'Brazil',
+  //   'Australia',
+  //   'Japan',
+  //   'Czechia',
+  //   'Turkey',
+  //   'Israel',
+  //   'Ireland',
+  //   'Diamond-Princess-',
+  //   'Luxembourg',
+  //   'Pakistan',
+  //   'Chile',
+  //   'Poland',
+  //   'Ecuador',
+  //   'Greece',
+  //   'Finland',
+  //   'Qatar',
+  //   'Iceland',
+  //   'Indonesia',
+  //   'Singapore',
+  //   'Thailand',
+  //   'Saudi-Arabia',
+  //   'Slovenia',
+  //   'Romania',
+  //   'India',
+  //   'Peru',
+  //   'Bahrain',
+  //   'Philippines',
+  //   'Russia',
+  //   'Estonia',
+  //   'Egypt',
+  //   'Hong-Kong',
+  //   'South-Africa',
+  //   'Lebanon',
+  //   'Iraq',
+  //   'Croatia',
+  //   'Mexico',
+  //   'Panama',
+  //   'Colombia',
+  // ];
 
   function calculatePercent(total, partial) {
     const percent = (partial * 100) / total;
@@ -117,15 +162,20 @@ export default function Statistics() {
 
   function handleLoadMore() {
     // increase page by 1
-    if (!loadMore) {
+
+    setLoadMore(true);
+    setTimeout(() => {
       setCountriesPaginated(paginate(countries, page + 1));
+    }, 4000);
+    if (countriesPaginated !== null) {
       setPage(page + 1);
     }
+    setLoadMore(false);
   }
 
   function renderFooter() {
     //it will show indicator at the bottom of the list when data is loading otherwise it returns null
-    if (!loadMore) {
+    if (loadMore === false) {
       return null;
     }
     return <ActivityIndicator style={{ color: '#000' }} />;
@@ -154,6 +204,7 @@ export default function Statistics() {
           </Country>
         ) : (
             <>
+              {console.log(index)}
               <SeparatorModal />
               <Country>
                 <Flag source={coronavirus} />
@@ -192,16 +243,18 @@ export default function Statistics() {
                 <Icon name="close" size={20} color="#fff" />
               </ButtonModal>
               <ContentModal>
-                <>
-                  <HeaderModal>
-                    <TitleModal>Countries</TitleModal>
-                  </HeaderModal>
-                  <CountryList
-                    data={countries}
-                    keyExtractor={(country) => String(country)}
-                    renderItem={renderItem}
-                  />
-                </>
+                <HeaderModal>
+                  <TitleModal>Countries</TitleModal>
+                </HeaderModal>
+                <CountryList
+                  data={countries}
+                  keyExtractor={(country) => String(country)}
+                  renderItem={renderItem}
+                  windowSize={100}
+                  initialListSize={300}
+                  initialNumToRender={10}
+                  maxToRenderPerBatch={15}
+                />
               </ContentModal>
             </ContainerModal>
           </Modal>
