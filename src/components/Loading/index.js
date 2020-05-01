@@ -1,18 +1,17 @@
 import React from 'react';
-import { View } from 'react-native';
 import Background from '~/components/Background';
 
 import { Container, Logo, AppName, BgWorldMap } from './styles';
-import coronavirus from '../../assets/coronavirus.png';
+import coronavirus from '~/assets/coronavirus.png';
+import worldmap from '~/assets/coronavirus9.png';
 
-import worldmap from '../../assets/coronavirus9.png';
-export default function SplashScreen() {
+export default function Loading() {
   return (
     <Background>
       <BgWorldMap source={worldmap} />
       <Container>
         <Logo source={coronavirus} />
-        <AppName>COVID-19 statistics</AppName>
+        <AppName>Loading statistics...</AppName>
       </Container>
     </Background>
   );

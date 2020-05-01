@@ -266,3 +266,16 @@ export const Press = styled.Text`
   height: 130%;
   background: transparent !important;
 `;
+
+export const BgWorldMap = styled.Image`
+  position: absolute;
+  z-index: -5;
+  width: 100%;
+  height: 100%;
+`;
+
+export const Logo = styled.Image`
+  width: 100px;
+  height: 100px;
+  margin-bottom: 20px;
+`;

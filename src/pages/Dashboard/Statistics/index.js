@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import Background from '~/components/Background';
 import Modal from 'react-native-modal';
 import { ActivityIndicator } from 'react-native';
-
+import Loading from '~/components/Loading';
 import {
   Container,
   Separator,
@@ -43,61 +43,49 @@ import {
   Date,
   Name,
   Press,
+  BgWorldMap,
+  Logo,
 } from './styles';
 
-import { formatDistance, parseISO } from 'date-fns';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import coronavirus from '~/assets/coronavirus.png';
-import api from '~/services/apiTest';
+import worldmap from '~/assets/coronavirus9.png';
+import api from '~/services/api';
 import format from '~/utils/format';
 import paginate from '~/utils/paginate';
 
 export default function Statistics() {
   const [statistics, setStatistics] = useState([]);
   const [country, setCountry] = useState({});
-  const [countryName, setCountryName] = useState('USA');
+  const [countryName, setCountryName] = useState('Brazil');
   const [loading, setLoading] = useState(true);
   const [visible, setVisible] = useState(false);
 
-  const [page, setPage] = useState(1);
-  const [loadMore, setLoadMore] = useState(false);
-
-  // const [countries, setCountries] = useState([]);
-  // const [countriesPaginated, setCountriesPaginated] = useState([]);
+  const [countries, setCountries] = useState([]);
 
   useEffect(() => {
     async function loadStatistics() {
       const response = await api.get('statistics');
-      const allStatistics = response.data;
-      // const countriesName = response.data.map((country) => country.country);
-      const countryStatistics = response.data.find(
+      const allStatistics = response.data.response;
+      const countriesName = response.data.response.map(
+        (country) => country.country,
+      );
+      const countryStatistics = response.data.response.find(
         (stat) => stat.country === countryName,
       );
 
       setStatistics(allStatistics);
-      // setCountries(countriesName);
-      // setCountriesPaginated(paginate(countriesName, page));
+      setCountries(countriesName);
       setCountry(countryStatistics);
-    }
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-    loadStatistics();
-  }, [countryName, page]);
 
-  // console.log(paginate(countries, 2));
-  const countries = [
-    'China',
-    'Italy',
-    'Spain',
-    'USA',
-    'Germany',
-    'Iran',
-    'France',
-    'S-Korea',
-    'Switzerland',
-    'UK',
-  ];
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+    }
+    loadStatistics();
+  }, [countryName]);
+
+  console.log(countries);
 
   function calculatePercent(total, partial) {
     const percent = (partial * 100) / total;
@@ -115,97 +103,64 @@ export default function Statistics() {
     return data;
   }
 
-  function handleLoadMore() {
-    // increase page by 1
-    if (!loadMore) {
-      setCountriesPaginated(paginate(countries, page + 1));
-      setPage(page + 1);
-    }
-  }
+  // function renderFooter() {
+  //   if (!loadMore) {
+  //     return null;
+  //   }
+  //   return <ActivityIndicator style={{ color: '#000' }} />;
+  // }
 
-  function renderFooter() {
-    //it will show indicator at the bottom of the list when data is loading otherwise it returns null
-    if (!loadMore) {
-      return null;
-    }
-    return <ActivityIndicator style={{ color: '#000' }} />;
-  }
-
-  function renderItem({ item: country, index }) {
+  function renderItem({ item: country }) {
     return (
-      <>
-        {index === 0 ? (
-          <Country>
-            <Flag source={coronavirus} />
-            <Press
-              onPress={() => {
-                setCountryName(country);
-                handleModal();
-              }}>
-              RectButton onPress is not working?????
-            </Press>
-            <Name
-              onPress={() => {
-                setCountryName(country);
-                handleModal();
-              }}>
-              {country}
-            </Name>
-          </Country>
-        ) : (
-            <>
-              <SeparatorModal />
-              <Country>
-                <Flag source={coronavirus} />
-                <Press
-                  onPress={() => {
-                    setCountryName(country);
-                    handleModal();
-                  }}>
-                  RectButton onPress is not working?????
-              </Press>
-                <Name
-                  onPress={() => {
-                    setCountryName(country);
-                    handleModal();
-                  }}>
-                  {country}
-                </Name>
-              </Country>
-            </>
-          )}
-      </>
+      <Country>
+        <Flag source={coronavirus} />
+        <Press
+          onPress={() => {
+            setCountryName(country);
+            handleModal();
+          }}>
+          RectButton onPress is not working?????
+        </Press>
+        <Name
+          onPress={() => {
+            setCountryName(country);
+            handleModal();
+          }}>
+          {country}
+        </Name>
+      </Country>
     );
   }
 
   if (loading) {
-    return <></>;
+    return <Loading />;
   }
 
   return (
     <Background>
       <Container>
-        <Header>
-          <Modal isVisible={visible}>
-            <ContainerModal>
-              <ButtonModal onPress={handleModal}>
-                <Icon name="close" size={20} color="#fff" />
-              </ButtonModal>
-              <ContentModal>
-                <>
-                  <HeaderModal>
-                    <TitleModal>Countries</TitleModal>
-                  </HeaderModal>
-                  <CountryList
-                    data={countries}
-                    keyExtractor={(country) => String(country)}
-                    renderItem={renderItem}
-                  />
-                </>
-              </ContentModal>
-            </ContainerModal>
-          </Modal>
+        <Modal isVisible={visible}>
+          <ContainerModal>
+            <ButtonModal onPress={handleModal}>
+              <Icon name="close" size={20} color="#fff" />
+            </ButtonModal>
+            <ContentModal>
+              <>
+                <HeaderModal>
+                  <TitleModal>Countries</TitleModal>
+                </HeaderModal>
+                <CountryList
+                  data={countries}
+                  ItemSeparatorComponent={() => <SeparatorModal />}
+                  keyExtractor={(country) => String(country)}
+                  renderItem={renderItem}
+                />
+              </>
+            </ContentModal>
+          </ContainerModal>
+        </Modal>
 
+        <Header>
           <Info>
             <AppName>COVID-19 statistics</AppName>
             <CountryPicker>

@@ -19,7 +19,7 @@ export default function DashboardRoutes() {
         showLabel: false,
       }}>
       <Tab.Screen
-        name="Agendamentos"
+        name="Statistics"
         component={Statistics}
         options={{
           tabBarIcon: ({ color, size }) => {
@@ -28,7 +28,7 @@ export default function DashboardRoutes() {
         }}
       />
       <Tab.Screen
-        name="Agendar"
+        name="World"
         component={World}
         options={{
           tabBarIcon: ({ color, size }) => {
@@ -37,7 +37,7 @@ export default function DashboardRoutes() {
         }}
       />
       <Tab.Screen
-        name="Perfil"
+        name="Prevent"
         component={Prevent}
         options={{
           tabBarIcon: ({ color, size }) => {
