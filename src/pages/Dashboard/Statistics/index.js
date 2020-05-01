@@ -1,8 +1,13 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import Background from '~/components/Background';
 import Modal from 'react-native-modal';
+<<<<<<< HEAD
 import { ActivityIndicator } from 'react-native';
 import Loading from '~/components/Loading';
+=======
+import { ActivityIndicator, View } from 'react-native';
+
+>>>>>>> eea620e55d8f7da94a867b04422cf2b0f27be057
 import {
   Container,
   Separator,
