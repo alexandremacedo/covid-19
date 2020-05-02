@@ -1,6 +1,5 @@
 import styled from 'styled-components/native';
 import { RectButton } from 'react-native-gesture-handler';
-import { RecyclerListView } from 'recyclerlistview';
 
 export const Container = styled.View`
   flex: 1;
@@ -36,7 +35,6 @@ export const TotalCard = styled.View`
   justify-content: center;
   background: rgba(0, 0, 0, 0.1);
   padding: 30px 0;
-  width: 100%;
 `;
 
 export const TotalTitle = styled.Text`
@@ -191,7 +189,7 @@ export const Flag = styled.Image`
 
 export const Name = styled.Text`
   color: #333;
-  margin: 0 15px;
+  padding: 10px 0;
   width: 100%;
   font-weight: bold;
   font-size: 14px;
@@ -279,4 +277,13 @@ export const Logo = styled.Image`
   width: 100px;
   height: 100px;
   margin-bottom: 20px;
+`;
+
+export const LoadingCountry = styled.View`
+  display: flex;
+  background: #fff;
+  align-items: center;
+  justify-content: center;
+
+  flex: 1;
 `;

@@ -1,13 +1,10 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import Background from '~/components/Background';
 import Modal from 'react-native-modal';
-<<<<<<< HEAD
-import { ActivityIndicator } from 'react-native';
+import { StyleSheet } from 'react-native';
 import Loading from '~/components/Loading';
-=======
-import { ActivityIndicator, View } from 'react-native';
+import ContentLoader from 'react-native-easy-content-loader';
 
->>>>>>> eea620e55d8f7da94a867b04422cf2b0f27be057
 import {
   Container,
   Separator,
@@ -50,6 +47,7 @@ import {
   Press,
   BgWorldMap,
   Logo,
+  LoadingCountry,
 } from './styles';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -59,12 +57,28 @@ import api from '~/services/api';
 import format from '~/utils/format';
 import paginate from '~/utils/paginate';
 
+const styles = StyleSheet.create({
+  title: {
+    width: '100%',
+    height: 25,
+    marginTop: 5,
+  },
+  titleTotal: {
+    width: '60%',
+    alignSelf: 'center',
+    height: 35,
+    marginTop: 10,
+  },
+});
+
 export default function Statistics() {
   const [statistics, setStatistics] = useState([]);
   const [country, setCountry] = useState({});
   const [countryName, setCountryName] = useState('Brazil');
   const [loading, setLoading] = useState(true);
   const [visible, setVisible] = useState(false);
+
+  const [loadingCountry, setLoadingCountry] = useState(true);
 
   const [countries, setCountries] = useState([]);
 
@@ -85,6 +99,7 @@ export default function Statistics() {
 
       setTimeout(() => {
         setLoading(false);
+        setLoadingCountry(false);
       }, 1000);
     }
     loadStatistics();
@@ -101,6 +116,10 @@ export default function Statistics() {
     setVisible(!visible);
   }
 
+  function handleLoadingCountry() {
+    setLoadingCountry(!loadingCountry);
+  }
+
   function isNull(data) {
     if (data === null) {
       return '--';
@@ -108,28 +127,14 @@ export default function Statistics() {
     return data;
   }
 
-  // function renderFooter() {
-  //   if (!loadMore) {
-  //     return null;
-  //   }
-  //   return <ActivityIndicator style={{ color: '#000' }} />;
-  // }
-
   function renderItem({ item: country }) {
     return (
       <Country>
-        <Flag source={coronavirus} />
-        <Press
-          onPress={() => {
-            setCountryName(country);
-            handleModal();
-          }}>
-          RectButton onPress is not working?????
-        </Press>
         <Name
           onPress={() => {
             setCountryName(country);
             handleModal();
+            handleLoadingCountry();
           }}>
           {country}
         </Name>
@@ -150,17 +155,19 @@ export default function Statistics() {
               <Icon name="close" size={20} color="#fff" />
             </ButtonModal>
             <ContentModal>
-              <>
-                <HeaderModal>
-                  <TitleModal>Countries</TitleModal>
-                </HeaderModal>
-                <CountryList
-                  data={countries}
-                  ItemSeparatorComponent={() => <SeparatorModal />}
-                  keyExtractor={(country) => String(country)}
-                  renderItem={renderItem}
-                />
-              </>
+              <HeaderModal>
+                <TitleModal>Countries</TitleModal>
+              </HeaderModal>
+              <CountryList
+                data={countries}
+                ItemSeparatorComponent={() => <SeparatorModal />}
+                keyExtractor={(country) => String(country)}
+                renderItem={renderItem}
+                removeClippedSubviews={true}
+                initialNumToRender={countries.length}
+                maxToRenderPerBatch={100}
+                windowSize={countries.length}
+              />
             </ContentModal>
           </ContainerModal>
         </Modal>
@@ -188,24 +195,36 @@ export default function Statistics() {
         <TotalContent>
           <TotalCard>
             <TotalTitle>CASES</TotalTitle>
-            <TotalAmount>{country.cases.total}</TotalAmount>
+            <ContentLoader
+              active
+              titleStyles={styles.titleTotal}
+              pRows={0}
+              loading={loadingCountry}>
+              <TotalAmount>{country.cases.total}</TotalAmount>
+            </ContentLoader>
           </TotalCard>
         </TotalContent>
         <ScrollContent>
           <ContentBoth>
             <ActiveContent>
               <Title>ACTIVE</Title>
-              <ContentBothIndicator>
-                <ActiveAmount>{isNull(country.cases.active)}</ActiveAmount>
-                {country.cases.new ? (
-                  <>
-                    <Icon name="arrow-upward" size={15} color="#24c2ff" />
-                    <NewAmount>{parseInt(country.cases.new)}</NewAmount>
-                  </>
-                ) : (
-                    <></>
-                  )}
-              </ContentBothIndicator>
+              <ContentLoader
+                active
+                titleStyles={styles.title}
+                pRows={0}
+                loading={loadingCountry}>
+                <ContentBothIndicator>
+                  <ActiveAmount>{isNull(country.cases.active)}</ActiveAmount>
+                  {country.cases.new ? (
+                    <>
+                      <Icon name="arrow-upward" size={15} color="#24c2ff" />
+                      <NewAmount>{parseInt(country.cases.new)}</NewAmount>
+                    </>
+                  ) : (
+                      <></>
+                    )}
+                </ContentBothIndicator>
+              </ContentLoader>
             </ActiveContent>
           </ContentBoth>
 
@@ -214,13 +233,31 @@ export default function Statistics() {
           <ContentBoth>
             <Content>
               <Title>RECOVERED</Title>
-              <RecoveredAmount>
+
+              <ContentLoader
+                active
+                titleStyles={styles.title}
+                pRows={0}
+                loading={loadingCountry}>
+                <RecoveredAmount>
+                  {isNull(country.cases.recovered)}
+                </RecoveredAmount>
+              </ContentLoader>
+              {/* <RecoveredAmount>
                 {isNull(country.cases.recovered)}
-              </RecoveredAmount>
+              </RecoveredAmount> */}
             </Content>
             <Content>
               <Title>CRITICAL</Title>
-              <CriticalAmount>{isNull(country.cases.critical)}</CriticalAmount>
+              <ContentLoader
+                active
+                titleStyles={styles.title}
+                pRows={0}
+                loading={loadingCountry}>
+                <CriticalAmount>
+                  {isNull(country.cases.critical)}
+                </CriticalAmount>
+              </ContentLoader>
             </Content>
           </ContentBoth>
 
@@ -229,23 +266,35 @@ export default function Statistics() {
           <ContentBoth>
             <Content>
               <Title>DEATHS</Title>
-              <ContentBothIndicator>
-                <DeathAmount>{isNull(country.deaths.total)}</DeathAmount>
-                {country.deaths.new ? (
-                  <>
-                    <Icon name="arrow-upward" size={15} color="#333" />
-                    <DeathNewAmount>
-                      {parseInt(country.deaths.new)}
-                    </DeathNewAmount>
-                  </>
-                ) : (
-                    <></>
-                  )}
-              </ContentBothIndicator>
+              <ContentLoader
+                active
+                titleStyles={styles.title}
+                pRows={0}
+                loading={loadingCountry}>
+                <ContentBothIndicator>
+                  <DeathAmount>{isNull(country.deaths.total)}</DeathAmount>
+                  {country.deaths.new ? (
+                    <>
+                      <Icon name="arrow-upward" size={15} color="#333" />
+                      <DeathNewAmount>
+                        {parseInt(country.deaths.new)}
+                      </DeathNewAmount>
+                    </>
+                  ) : (
+                      <></>
+                    )}
+                </ContentBothIndicator>
+              </ContentLoader>
             </Content>
             <Content>
               <Title>TESTS</Title>
-              <Amount>{isNull(country.tests.total)}</Amount>
+              <ContentLoader
+                active
+                titleStyles={styles.title}
+                pRows={0}
+                loading={loadingCountry}>
+                <Amount>{isNull(country.tests.total)}</Amount>
+              </ContentLoader>
             </Content>
           </ContentBoth>
 
@@ -254,15 +303,30 @@ export default function Statistics() {
           <ContentBoth>
             <Content>
               <Title>MORTALITY</Title>
-              <Amount>
-                {calculatePercent(country.cases.total, country.deaths.total)}
-              </Amount>
+              <ContentLoader
+                active
+                titleStyles={styles.title}
+                pRows={0}
+                loading={loadingCountry}>
+                <Amount>
+                  {calculatePercent(country.cases.total, country.deaths.total)}
+                </Amount>
+              </ContentLoader>
             </Content>
             <Content>
               <Title>RECOVERY</Title>
-              <Amount>
-                {calculatePercent(country.cases.total, country.cases.recovered)}
-              </Amount>
+              <ContentLoader
+                active
+                titleStyles={styles.title}
+                pRows={0}
+                loading={loadingCountry}>
+                <Amount>
+                  {calculatePercent(
+                    country.cases.total,
+                    country.cases.recovered,
+                  )}
+                </Amount>
+              </ContentLoader>
             </Content>
           </ContentBoth>
         </ScrollContent>
