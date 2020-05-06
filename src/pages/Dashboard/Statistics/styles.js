@@ -176,7 +176,6 @@ export const TitleModal = styled.Text`
 export const Country = styled(RectButton)`
   background: #fff;
   border-radius: 4px;
-  flex: 1;
   padding: 10px 10px;
   flex-direction: row;
   align-items: center;

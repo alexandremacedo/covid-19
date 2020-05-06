@@ -33,7 +33,6 @@ import {
   TitleModal,
   CountryList,
   Country,
-  Flag,
   ContainerModal,
   Logo1,
   Logo2,
@@ -45,17 +44,12 @@ import {
   Date,
   Name,
   Press,
-  BgWorldMap,
-  Logo,
-  LoadingCountry,
 } from './styles';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import coronavirus from '~/assets/coronavirus.png';
-import worldmap from '~/assets/coronavirus9.png';
 import api from '~/services/api';
 import format from '~/utils/format';
-import paginate from '~/utils/paginate';
 
 const styles = StyleSheet.create({
   title: {
@@ -95,6 +89,7 @@ export default function Statistics() {
 
       setStatistics(allStatistics);
       setCountries(countriesName);
+
       setCountry(countryStatistics);
 
       setTimeout(() => {
@@ -104,8 +99,6 @@ export default function Statistics() {
     }
     loadStatistics();
   }, [countryName]);
-
-  console.log(countries);
 
   function calculatePercent(total, partial) {
     const percent = (partial * 100) / total;
@@ -164,9 +157,9 @@ export default function Statistics() {
                 keyExtractor={(country) => String(country)}
                 renderItem={renderItem}
                 removeClippedSubviews={true}
-                initialNumToRender={countries.length}
-                maxToRenderPerBatch={100}
-                windowSize={countries.length}
+                initialNumToRender={5}
+                maxToRenderPerBatch={10}
+                windowSize={10}
               />
             </ContentModal>
           </ContainerModal>
