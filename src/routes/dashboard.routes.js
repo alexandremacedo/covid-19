@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Statistics from '~/pages/Dashboard/Statistics';
 import World from '~/pages/Dashboard/World';
-import Prevent from '~/pages/Dashboard/Prevent';
+import PreventMain from '~/pages/Dashboard/Prevent/Main';
 
 const Tab = createBottomTabNavigator();
 
@@ -38,7 +38,7 @@ export default function DashboardRoutes() {
       />
       <Tab.Screen
         name="Prevent"
-        component={Prevent}
+        component={PreventMain}
         options={{
           tabBarIcon: ({ color, size }) => {
             return <Icon name="school" size={size} color={color} />;

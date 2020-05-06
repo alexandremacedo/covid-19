@@ -51,6 +51,8 @@ import coronavirus from '~/assets/coronavirus.png';
 import api from '~/services/api';
 import format from '~/utils/format';
 
+import formatCountryName from '~/utils/formatCountryName';
+
 const styles = StyleSheet.create({
   title: {
     width: '100%',
@@ -66,39 +68,50 @@ const styles = StyleSheet.create({
 });
 
 export default function Statistics() {
-  const [statistics, setStatistics] = useState([]);
   const [country, setCountry] = useState({});
   const [countryName, setCountryName] = useState('Brazil');
+  const [countryNameForSearch, setCountryNameForSearch] = useState('Brazil');
+
   const [loading, setLoading] = useState(true);
   const [visible, setVisible] = useState(false);
 
   const [loadingCountry, setLoadingCountry] = useState(true);
 
   const [countries, setCountries] = useState([]);
+  const [countriesFormatted, setCountriesFormatted] = useState([]);
 
   useEffect(() => {
     async function loadStatistics() {
       const response = await api.get('statistics');
-      const allStatistics = response.data.response;
       const countriesName = response.data.response.map(
         (country) => country.country,
       );
-      const countryStatistics = response.data.response.find(
-        (stat) => stat.country === countryName,
-      );
 
-      setStatistics(allStatistics);
       setCountries(countriesName);
+      setCountriesFormatted(formatCountryName(countriesName));
+
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+    }
+    loadStatistics();
+  }, []);
+
+  useEffect(() => {
+    async function loadCountryStatistcs() {
+      const response = await api.get('statistics');
+      const countryStatistics = response.data.response.find(
+        (stat) => stat.country === countryNameForSearch,
+      );
 
       setCountry(countryStatistics);
 
       setTimeout(() => {
-        setLoading(false);
         setLoadingCountry(false);
       }, 1000);
     }
-    loadStatistics();
-  }, [countryName]);
+    loadCountryStatistcs();
+  }, [countryNameForSearch]);
 
   function calculatePercent(total, partial) {
     const percent = (partial * 100) / total;
@@ -120,12 +133,13 @@ export default function Statistics() {
     return data;
   }
 
-  function renderItem({ item: country }) {
+  function renderItem({ item: country, index }) {
     return (
       <Country>
         <Name
           onPress={() => {
             setCountryName(country);
+            setCountryNameForSearch(countries[index]);
             handleModal();
             handleLoadingCountry();
           }}>
@@ -152,7 +166,7 @@ export default function Statistics() {
                 <TitleModal>Countries</TitleModal>
               </HeaderModal>
               <CountryList
-                data={countries}
+                data={countriesFormatted}
                 ItemSeparatorComponent={() => <SeparatorModal />}
                 keyExtractor={(country) => String(country)}
                 renderItem={renderItem}
