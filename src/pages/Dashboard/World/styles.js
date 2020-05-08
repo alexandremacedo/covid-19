@@ -34,7 +34,7 @@ export const TotalCard = styled.View`
 
   justify-content: center;
   background: rgba(0, 0, 0, 0.1);
-  padding: 30px 0;
+  padding: 20px 0;
   width: 100%;
 `;
 
@@ -44,7 +44,7 @@ export const TotalTitle = styled.Text`
   color: #222b45;
 `;
 export const TotalAmount = styled.Text`
-  font-size: 32px;
+  font-size: 28px;
   font-weight: bold;
   color: #222b45;
 `;
@@ -197,7 +197,7 @@ export const Name = styled.Text`
 `;
 
 export const Header = styled.View`
-  height: 200px;
+  height: 160px;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
@@ -221,7 +221,7 @@ export const CountryPicker = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin: 10px 0 0px;
+  margin: 5px 0 0;
 `;
 
 export const CountryName = styled.Text`
@@ -237,16 +237,16 @@ export const Date = styled.Text`
 `;
 
 export const Logo1 = styled.Image`
-  width: 140px;
-  height: 140px;
+  width: 120px;
+  height: 120px;
   position: absolute;
-  top: 130px;
-  left: -60px;
+  top: 110px;
+  left: -45px;
 `;
 
 export const Logo2 = styled.Image`
-  width: 90px;
-  height: 90px;
+  width: 80px;
+  height: 80px;
   right: -20px;
   top: 5px;
   position: absolute;
@@ -256,7 +256,7 @@ export const Logo3 = styled.Image`
   height: 60px;
   position: absolute;
   right: 70px;
-  top: 170px;
+  top: 130px;
 `;
 
 export const Press = styled.Text`

@@ -6,35 +6,40 @@ import {
   BackgroundImage,
   ContagionList,
   ContagionContent,
-  Image,
+  Dot,
   Name,
-  ContagionSide,
+  Header,
+  Info,
+  Title,
+  Subtitle,
+  Content,
 } from './styles';
-import coronavirus from '~/assets/coronavirus.png';
 import sickPersonRed from '~/assets/sick-person-red.png';
-
-// import sickPersonBlue from '~/assets/sick-person-blue.png';
-
-import sickPersonBlue from '~/assets/sick-person-blue-coffe-left.png';
-import worldmap from '~/assets/coronavirus9.png';
 
 export default function Contagion() {
   return (
-    <Background>
-      <Container>
-        <BackgroundImage source={sickPersonRed} />
-        <ContagionList>
-          <ContagionContent>
-            <Name>Contaminated objects</Name>
-          </ContagionContent>
-          <ContagionContent>
-            <Name>Air by cough or sneeze</Name>
-          </ContagionContent>
-          <ContagionContent>
-            <Name>Human contact</Name>
-          </ContagionContent>
-        </ContagionList>
-      </Container>
-    </Background>
+    <Container>
+      <BackgroundImage source={sickPersonRed} />
+      <Header>
+        <Info>
+          <Title>Contagion</Title>
+          <Subtitle>How to avoid being contaminated?</Subtitle>
+        </Info>
+      </Header>
+      <ContagionList>
+        <ContagionContent>
+          <Dot />
+          <Name>Contaminated objects</Name>
+        </ContagionContent>
+        <ContagionContent>
+          <Dot />
+          <Name>Air by cough or sneeze</Name>
+        </ContagionContent>
+        <ContagionContent>
+          <Dot />
+          <Name>Human contact</Name>
+        </ContagionContent>
+      </ContagionList>
+    </Container>
   );
 }

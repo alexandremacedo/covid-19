@@ -19,20 +19,20 @@ export default function DashboardRoutes() {
         showLabel: false,
       }}>
       <Tab.Screen
-        name="Statistics"
-        component={Statistics}
-        options={{
-          tabBarIcon: ({ color, size }) => {
-            return <Icon name="equalizer" size={size} color={color} />;
-          },
-        }}
-      />
-      <Tab.Screen
         name="World"
         component={World}
         options={{
           tabBarIcon: ({ color, size }) => {
             return <Icon name="language" size={size} color={color} />;
+          },
+        }}
+      />
+      <Tab.Screen
+        name="Statistics"
+        component={Statistics}
+        options={{
+          tabBarIcon: ({ color, size }) => {
+            return <Icon name="equalizer" size={size} color={color} />;
           },
         }}
       />

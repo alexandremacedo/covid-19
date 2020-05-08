@@ -93,7 +93,7 @@ export default function World() {
 
         <TotalContent>
           <TotalCard>
-            <TotalTitle>CASES</TotalTitle>
+            <TotalTitle>ALL CASES</TotalTitle>
             <TotalAmount>{country.cases.total}</TotalAmount>
           </TotalCard>
         </TotalContent>

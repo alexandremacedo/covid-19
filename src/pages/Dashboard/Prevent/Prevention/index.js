@@ -6,31 +6,46 @@ import {
   BackgroundImage,
   PreventionList,
   PreventionContent,
-  Image,
+  Dot,
   Name,
   PreventionCenter,
+  Header,
+  Info,
+  Title,
+  Subtitle,
+  Content,
 } from './styles';
-import coronavirus from '~/assets/coronavirus.png';
-import sickPersonGreen from '~/assets/sick-person-green.png';
-import worldmap from '~/assets/coronavirus9.png';
+
+import sickPersonBlue from '~/assets/sick-person-blue.png';
 
 export default function Prevent() {
   return (
     <Container>
-      <BackgroundImage source={sickPersonGreen} />
-      <PreventionList>
-        <PreventionCenter>
-          <PreventionContent>
-            <Name>Wash your hands</Name>
-          </PreventionContent>
-          <PreventionContent>
-            <Name>Sneeze into your elbow</Name>
-          </PreventionContent>
-          <PreventionContent>
-            <Name>Avoid crowded placed</Name>
-          </PreventionContent>
-        </PreventionCenter>
-      </PreventionList>
+      <BackgroundImage source={sickPersonBlue} />
+      <Content>
+        <Header>
+          <Info>
+            <Title>Prevention</Title>
+            <Subtitle>How to keep yourself forewarned?</Subtitle>
+          </Info>
+        </Header>
+        <PreventionList>
+          <PreventionCenter>
+            <PreventionContent>
+              <Dot />
+              <Name>Wash your hands</Name>
+            </PreventionContent>
+            <PreventionContent>
+              <Dot />
+              <Name>Sneeze into your elbow</Name>
+            </PreventionContent>
+            <PreventionContent>
+              <Dot />
+              <Name>Avoid crowded places</Name>
+            </PreventionContent>
+          </PreventionCenter>
+        </PreventionList>
+      </Content>
     </Container>
   );
 }

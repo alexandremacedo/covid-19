@@ -201,7 +201,7 @@ export default function Statistics() {
 
         <TotalContent>
           <TotalCard>
-            <TotalTitle>CASES</TotalTitle>
+            <TotalTitle>ALL CASES</TotalTitle>
             <ContentLoader
               active
               titleStyles={styles.titleTotal}
@@ -250,9 +250,6 @@ export default function Statistics() {
                   {isNull(country.cases.recovered)}
                 </RecoveredAmount>
               </ContentLoader>
-              {/* <RecoveredAmount>
-                {isNull(country.cases.recovered)}
-              </RecoveredAmount> */}
             </Content>
             <Content>
               <Title>CRITICAL</Title>

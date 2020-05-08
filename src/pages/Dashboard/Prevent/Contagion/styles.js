@@ -1,21 +1,26 @@
 import styled from 'styled-components/native';
-import { RectButton } from 'react-native-gesture-handler';
 
 export const Container = styled.View`
   flex: 1;
   background: #fff;
 `;
+export const Content = styled.View`
+  display: flex;
+  background: #fff;
+  min-height: 100%;
+`;
 
 export const BackgroundImage = styled.Image`
   position: absolute;
-  height: 300px;
-  width: 300px;
-  bottom: 10px;
-  right: -50px;
+  height: 320px;
+  width: 320px;
+  top: 250px;
+  left: 95px;
 `;
 
 export const ContagionList = styled.View`
-  flex: 1;
+  display: flex;
+  height: 100%;
   align-items: flex-start;
   margin: 30px 0;
 `;
@@ -29,7 +34,45 @@ export const ContagionContent = styled.View`
 `;
 
 export const Name = styled.Text`
-  color: #333;
-  font-size: 18px;
+  color: #222b45;
+  font-size: 17px;
   font-weight: bold;
+`;
+
+export const Dot = styled.View`
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
+  background: #222b45;
+
+  margin-right: 7px;
+`;
+
+export const Header = styled.View`
+  display: flex;
+  height: 140px;
+  background: #222b45;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const Info = styled.View`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const Title = styled.Text`
+  font-size: 32px;
+  font-weight: bold;
+  margin-right: 5px;
+  color: #fff;
+`;
+
+export const Subtitle = styled.Text`
+  font-size: 14px;
+  margin-top: 5px;
+  color: rgba(255, 255, 255, 0.6);
 `;

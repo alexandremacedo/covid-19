@@ -6,29 +6,42 @@ import {
   BackgroundImage,
   SymptomsList,
   SymptomsContent,
-  Image,
+  Dot,
   Name,
-  SymptomsSide,
+  Header,
+  Info,
+  Title,
+  Subtitle,
 } from './styles';
-import coronavirus from '~/assets/coronavirus.png';
-import sickPersonGreen from '~/assets/sick-person-green.png';
-import worldmap from '~/assets/coronavirus9.png';
+
+import sickPersonBlue from '~/assets/sick-person-blue.png';
 
 export default function Symptoms() {
   return (
     <Container>
-      <BackgroundImage source={sickPersonGreen} />
+      <BackgroundImage source={sickPersonBlue} />
+
+      <Header>
+        <Info>
+          <Title>Symptoms</Title>
+          <Subtitle>How to identify your symptoms?</Subtitle>
+        </Info>
+      </Header>
       <SymptomsList>
         <SymptomsContent>
+          <Dot />
           <Name>Fever</Name>
         </SymptomsContent>
         <SymptomsContent>
-          <Name>Dyspnea</Name>
+          <Dot />
+          <Name>Sore throat</Name>
         </SymptomsContent>
         <SymptomsContent>
+          <Dot />
           <Name>Headache</Name>
         </SymptomsContent>
         <SymptomsContent>
+          <Dot />
           <Name>Couch</Name>
         </SymptomsContent>
       </SymptomsList>

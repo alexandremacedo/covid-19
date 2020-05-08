@@ -1,29 +1,23 @@
 import styled from 'styled-components/native';
-import { RectButton } from 'react-native-gesture-handler';
 
 export const Container = styled.View`
   flex: 1;
   background: #fff;
-  justify-content: center;
 `;
 
 export const BackgroundImage = styled.Image`
   position: absolute;
-  height: 400px;
-  width: 400px;
-  right: -140px;
+  height: 350px;
+  width: 350px;
+  top: 200px;
+  left: 120px;
 `;
 
 export const SymptomsList = styled.View`
-  flex: 1;
+  display: flex;
+  height: 100%;
   align-items: flex-start;
   margin: 30px 0;
-`;
-
-export const SymptomsSide = styled.View`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
 `;
 
 export const SymptomsContent = styled.View`
@@ -35,7 +29,45 @@ export const SymptomsContent = styled.View`
 `;
 
 export const Name = styled.Text`
-  color: #333;
-  font-size: 18px;
+  color: #222b45;
+  font-size: 17px;
   font-weight: bold;
+`;
+
+export const Dot = styled.View`
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
+  background: #222b45;
+
+  margin-right: 7px;
+`;
+
+export const Header = styled.View`
+  display: flex;
+  height: 140px;
+  background: #222b45;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const Info = styled.View`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const Title = styled.Text`
+  font-size: 32px;
+  font-weight: bold;
+  margin-right: 5px;
+  color: #fff;
+`;
+
+export const Subtitle = styled.Text`
+  font-size: 14px;
+  margin-top: 5px;
+  color: rgba(255, 255, 255, 0.6);
 `;
