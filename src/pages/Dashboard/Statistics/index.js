@@ -92,7 +92,7 @@ export default function Statistics() {
 
       setTimeout(() => {
         setLoading(false);
-      }, 1000);
+      }, 1500);
     }
     loadStatistics();
   }, []);
@@ -132,6 +132,10 @@ export default function Statistics() {
     }
     return data;
   }
+
+  console.log(
+    'Lenght1: ' + countries.length + 'Lengght2: ' + countriesFormatted.length,
+  );
 
   function renderItem({ item: country, index }) {
     return (

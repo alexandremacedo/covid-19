@@ -17,7 +17,7 @@ export const SymptomsList = styled.View`
   display: flex;
   height: 100%;
   align-items: flex-start;
-  margin: 30px 0;
+  margin: 23px 0;
 `;
 
 export const SymptomsContent = styled.View`
