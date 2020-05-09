@@ -7,7 +7,7 @@
 </h3>
 
 <h4 align="center">
-  React Native + Redux + Hooks
+  React Native + Hooks
 </h4>
 
 <p align="center">
@@ -65,8 +65,6 @@ This project was developed with the following technologies:
 -  [React-navigation](https://reactnavigation.org/docs/getting-started/)
 -  [Reactotron](https://infinite.red/reactotron)
 -  [Vector-icons](https://react-icons.netlify.com/)
--  [Redux](https://redux.js.org/)
--  [Redux-Saga](https://redux-saga.js.org/)
 -  [Styled-components](https://www.styled-components.com/)
 -  [VSCode][vc] with [EditorConfig][vceditconfig] and [ESLint][vceslint]
 
