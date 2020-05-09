@@ -59,11 +59,8 @@ This project was developed with the following technologies:
 
 -  [Axios](https://github.com/axios/axios)
 -  [Date-fns](https://date-fns.org/)
--  [History](https://www.npmjs.com/package/history)
--  [Immer](https://github.com/immerjs/immer)
 -  [ReactJS](https://reactjs.org/)
 -  [React-navigation](https://reactnavigation.org/docs/getting-started/)
--  [Reactotron](https://infinite.red/reactotron)
 -  [Vector-icons](https://react-icons.netlify.com/)
 -  [Styled-components](https://www.styled-components.com/)
 -  [VSCode][vc] with [EditorConfig][vceditconfig] and [ESLint][vceslint]
