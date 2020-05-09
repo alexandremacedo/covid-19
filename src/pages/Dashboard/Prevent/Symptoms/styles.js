@@ -10,7 +10,7 @@ export const BackgroundImage = styled.Image`
   height: 350px;
   width: 350px;
   top: 200px;
-  left: 120px;
+  left: 171px;
 `;
 
 export const SymptomsList = styled.View`

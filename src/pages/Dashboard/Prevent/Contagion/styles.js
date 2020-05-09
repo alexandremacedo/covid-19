@@ -15,7 +15,7 @@ export const BackgroundImage = styled.Image`
   height: 320px;
   width: 320px;
   top: 250px;
-  left: 95px;
+  left: 135px;
 `;
 
 export const ContagionList = styled.View`
