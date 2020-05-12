@@ -24,7 +24,7 @@ export const Separator = styled.View`
   background: rgba(0, 0, 0, 0.1);
 `;
 
-export const TotalCard = styled(RectButton)`
+export const TotalCard = styled.View`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -96,6 +96,7 @@ export const ActiveAmount = styled.Text`
   font-size: 26px;
   font-weight: bold;
   color: #24c2ff;
+  margin-right: 5px;
 `;
 export const NewAmount = styled.Text`
   font-size: 16px;
@@ -117,6 +118,7 @@ export const DeathAmount = styled.Text`
   font-size: 26px;
   font-weight: bold;
   color: #333;
+  margin-right: 5px;
 `;
 export const DeathNewAmount = styled.Text`
   font-size: 16px;

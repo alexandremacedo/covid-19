@@ -38,6 +38,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import coronavirus from '~/assets/coronavirus.png';
 import api from '~/services/api';
 import format from '~/utils/format';
+import numberWithCommas from '~/utils/numberWithCommas';
 
 export default function World() {
   const [country, setCountry] = useState({});
@@ -71,7 +72,7 @@ export default function World() {
     return data;
   }
 
-  if (loading) {
+  if (country.time === undefined) {
     return <Loading />;
   }
 
@@ -94,7 +95,9 @@ export default function World() {
         <TotalContent>
           <TotalCard>
             <TotalTitle>ALL CASES</TotalTitle>
-            <TotalAmount>{country.cases.total}</TotalAmount>
+            <TotalAmount>
+              {numberWithCommas(isNull(country.cases.total))}
+            </TotalAmount>
           </TotalCard>
         </TotalContent>
         <ScrollContent>
@@ -102,7 +105,9 @@ export default function World() {
             <ActiveContent>
               <Title>ACTIVE</Title>
               <ContentBothIndicator>
-                <ActiveAmount>{isNull(country.cases.active)}</ActiveAmount>
+                <ActiveAmount>
+                  {numberWithCommas(isNull(country.cases.active))}
+                </ActiveAmount>
                 {country.cases.new ? (
                   <>
                     <Icon name="arrow-upward" size={15} color="#24c2ff" />
@@ -121,12 +126,14 @@ export default function World() {
             <Content>
               <Title>RECOVERED</Title>
               <RecoveredAmount>
-                {isNull(country.cases.recovered)}
+                {numberWithCommas(isNull(country.cases.recovered))}
               </RecoveredAmount>
             </Content>
             <Content>
               <Title>CRITICAL</Title>
-              <CriticalAmount>{isNull(country.cases.critical)}</CriticalAmount>
+              <CriticalAmount>
+                {numberWithCommas(isNull(country.cases.critical))}
+              </CriticalAmount>
             </Content>
           </ContentBoth>
 
@@ -135,23 +142,13 @@ export default function World() {
           <ContentBoth>
             <Content>
               <Title>DEATHS</Title>
-              <ContentBothIndicator>
-                <DeathAmount>{isNull(country.deaths.total)}</DeathAmount>
-                {country.deaths.new ? (
-                  <>
-                    <Icon name="arrow-upward" size={15} color="#333" />
-                    <DeathNewAmount>
-                      {parseInt(country.deaths.new)}
-                    </DeathNewAmount>
-                  </>
-                ) : (
-                    <></>
-                  )}
-              </ContentBothIndicator>
+              <DeathAmount>
+                {numberWithCommas(isNull(country.deaths.total))}
+              </DeathAmount>
             </Content>
             <Content>
               <Title>TESTS</Title>
-              <Amount>{isNull(country.tests.total)}</Amount>
+              <Amount>{numberWithCommas(isNull(country.tests.total))}</Amount>
             </Content>
           </ContentBoth>
 

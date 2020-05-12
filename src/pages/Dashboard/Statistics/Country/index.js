@@ -50,7 +50,6 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import coronavirus from '~/assets/coronavirus.png';
 import api from '~/services/api';
 import format from '~/utils/format';
-import numberWithCommas from '~/utils/numberWithCommas';
 
 import formatCountryName from '~/utils/formatCountryName';
 
@@ -68,7 +67,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function Statistics({ navigation }) {
+export default function Statistics() {
   const [country, setCountry] = useState({});
   const [countryName, setCountryName] = useState('Brazil');
   const [countryNameForSearch, setCountryNameForSearch] = useState('Brazil');
@@ -150,7 +149,7 @@ export default function Statistics({ navigation }) {
     );
   }
 
-  if (country.time === undefined) {
+  if (loading) {
     return <Loading />;
   }
 
@@ -200,17 +199,15 @@ export default function Statistics({ navigation }) {
           <Logo3 source={coronavirus} />
         </Header>
 
-        <TotalContent onPress={() => navigation.navigate('State')}>
-          <TotalCard onPress={() => navigation.navigate('State')}>
+        <TotalContent>
+          <TotalCard>
             <TotalTitle>ALL CASES</TotalTitle>
             <ContentLoader
               active
               titleStyles={styles.titleTotal}
               pRows={0}
               loading={loadingCountry}>
-              <TotalAmount>
-                {numberWithCommas(isNull(country.cases.total))}
-              </TotalAmount>
+              <TotalAmount>{country.cases.total}</TotalAmount>
             </ContentLoader>
           </TotalCard>
         </TotalContent>
@@ -224,9 +221,7 @@ export default function Statistics({ navigation }) {
                 pRows={0}
                 loading={loadingCountry}>
                 <ContentBothIndicator>
-                  <ActiveAmount>
-                    {numberWithCommas(isNull(country.cases.active))}
-                  </ActiveAmount>
+                  <ActiveAmount>{isNull(country.cases.active)}</ActiveAmount>
                   {country.cases.new ? (
                     <>
                       <Icon name="arrow-upward" size={15} color="#24c2ff" />
@@ -252,7 +247,7 @@ export default function Statistics({ navigation }) {
                 pRows={0}
                 loading={loadingCountry}>
                 <RecoveredAmount>
-                  {numberWithCommas(isNull(country.cases.recovered))}
+                  {isNull(country.cases.recovered)}
                 </RecoveredAmount>
               </ContentLoader>
             </Content>
@@ -264,7 +259,7 @@ export default function Statistics({ navigation }) {
                 pRows={0}
                 loading={loadingCountry}>
                 <CriticalAmount>
-                  {numberWithCommas(isNull(country.cases.critical))}
+                  {isNull(country.cases.critical)}
                 </CriticalAmount>
               </ContentLoader>
             </Content>
@@ -281,9 +276,7 @@ export default function Statistics({ navigation }) {
                 pRows={0}
                 loading={loadingCountry}>
                 <ContentBothIndicator>
-                  <DeathAmount>
-                    {numberWithCommas(isNull(country.deaths.total))}
-                  </DeathAmount>
+                  <DeathAmount>{isNull(country.deaths.total)}</DeathAmount>
                   {country.deaths.new ? (
                     <>
                       <Icon name="arrow-upward" size={15} color="#333" />
@@ -304,7 +297,7 @@ export default function Statistics({ navigation }) {
                 titleStyles={styles.title}
                 pRows={0}
                 loading={loadingCountry}>
-                <Amount>{numberWithCommas(isNull(country.tests.total))}</Amount>
+                <Amount>{isNull(country.tests.total)}</Amount>
               </ContentLoader>
             </Content>
           </ContentBoth>
