@@ -205,8 +205,11 @@ export default function Statistics({ navigation }) {
           <Logo3 source={coronavirus} />
         </Header>
 
-        <TotalContent onPress={() => navigation.navigate('State')}>
-          <TotalCard onPress={() => navigation.navigate('State')}>
+        <TotalContent>
+          <TotalCard
+            onPress={() => {
+              countryName === 'Brazil' ? navigation.navigate('State') : null;
+            }}>
             <TotalTitle>ALL CASES</TotalTitle>
             <ContentLoader
               active
