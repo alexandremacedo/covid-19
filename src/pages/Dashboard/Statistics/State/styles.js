@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-
+import { RectButton } from 'react-native-gesture-handler';
 export const Container = styled.View`
   flex: 1;
   flex-direction: column;
@@ -44,7 +44,7 @@ export const Date = styled.Text`
 `;
 
 export const Separator = styled.View`
-  margin: 15px 20px;
+  margin: 10px 0;
   height: 1px;
   background: rgba(0, 0, 0, 0.1);
 `;
@@ -55,14 +55,19 @@ export const StatesList = styled.FlatList.attrs({
   background: #fff;
 `;
 
-export const StateContent = styled.View`
-  margin: 0 35px;
+export const StateContent = styled(RectButton)`
+  background: #fff;
+  margin: 10px 15px;
+  padding: 15px;
+  border-radius: 4px;
+  elevation: 2;
 `;
 
 export const State = styled.Text`
   font-size: 18px;
   font-weight: bold;
   color: #333;
+  margin-left: 5px;
 `;
 
 export const ContentStatistics = styled.View`
@@ -70,7 +75,8 @@ export const ContentStatistics = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin-top: 10px;
+
+  margin: 0 5px;
 `;
 
 export const Content = styled.View`

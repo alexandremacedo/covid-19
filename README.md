@@ -65,6 +65,12 @@ This project was developed with the following technologies:
 -  [Styled-components](https://www.styled-components.com/)
 -  [VSCode][vc] with [EditorConfig][vceditconfig] and [ESLint][vceslint]
 
+## APIs
+This project uses the following APIs to provide the data:
+
+- [Global](https://rapidapi.com/api-sports/api/covid-193/endpoints)
+- [Brazil](https://github.com/devarthurribeiro/covid19-brazil-api)
+
 ## License
 The covid-19 is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 

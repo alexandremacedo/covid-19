@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import Statistics from '~/pages/Dashboard/Statistics';
+import Statistics from '~/pages/Dashboard/Statistics/Main';
 import World from '~/pages/Dashboard/World';
 import PreventMain from '~/pages/Dashboard/Prevent/Main';
 
