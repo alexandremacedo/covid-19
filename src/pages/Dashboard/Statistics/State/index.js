@@ -24,7 +24,7 @@ import {
 } from './styles';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import api from '~/services/apiTest';
+import api from '~/services/apiBrazil';
 import format from '~/utils/format';
 
 import numberWithCommas from '~/utils/numberWithCommas';
@@ -55,8 +55,8 @@ export default function Statistics({ navigation }) {
 
   useEffect(() => {
     async function loadStatesStatistcs() {
-      const response = await api.get('data');
-      const statesStatistics = response.data;
+      const response = await api.get();
+      const statesStatistics = response.data.data;
 
       setStates(statesStatistics);
 
